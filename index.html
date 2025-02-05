@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login dan Kalkulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .calculator {
+            display: none;
+            margin-top: 20px;
+        }
+        .operation-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .operation-buttons button {
+            width: 23%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="loginContainer">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <p id="error" style="color: red;"></p>
+</div>
+
+<div class="calculator" id="calculator">
+    <h2>Kalkulator Sederhana</h2>
+    <p>by Rama TKJ 2</p>
+    <input type="number" id="num1" placeholder="Angka Pertama">
+    <input type="number" id="num2" placeholder="Angka Kedua">
+    <div class="operation-buttons">
+        <button onclick="calculate('+')">+</button>
+        <button onclick="calculate('-')">-</button>
+        <button onclick="calculate('*')">×</button>
+        <button onclick="calculate('/')">÷</button>
+    </div>
+    <h3 id="result"></h3>
+</div>
+
+<script>
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const error = document.getElementById('error');
+
+        if (username === "ujicoba" && password === "123") {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('calculator').style.display = 'block';
+            error.textContent = '';
+        } else {
+            error.textContent = 'Username atau password salah!';
+        }
+    }
+
+    function calculate(operation) {
+        const num1 = parseFloat(document.getElementById('num1').value);
+        const num2 = parseFloat(document.getElementById('num2').value);
+        const result = document.getElementById('result');
+
+        let calculationResult;
+
+        if (!isNaN(num1) && !isNaN(num2)) {
+            switch (operation) {
+                case '+':
+                    calculationResult = num1 + num2;
+                    break;
+                case '-':
+                    calculationResult = num1 - num2;
+                    break;
+                case '*':
+                    calculationResult = num1 * num2;
+                    break;
+                case '/':
+                    calculationResult = num2 !== 0 ? num1 / num2 : 'Tidak bisa dibagi dengan nol!';
+                    break;
+                default:
+                    calculationResult = 'Operasi tidak valid!';
+            }
+            result.textContent = 'Hasil: ' + calculationResult;
+        } else {
+            result.textContent = 'Masukkan angka yang valid!';
+        }
+    }
+</script>
+
+</body>
+</html>
